@@ -1,0 +1,374 @@
+{
+  "info": {
+    "_postman_id": "23706c71-7295-42c0-9c59-7f64eea32db6",
+    "name": "Restful Booker",
+    "description": "## Overview\nThe Restful Booker API is a sample API based on hotel bookings. The API contains endpoints to demonstrate CRUD operations. The source code can be obtained from https://github.com/mwinteringham/restful-booker\n\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Get Bookings",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "id": "35295e33-19cc-480c-9918-c71d6064d844"
+              }
+            }
+          ],
+          "_postman_id": "3dee7e55-d7a8-44d6-8694-4ef75fe95e5a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{url}}/booking",
+            "description": "Get a list of all bookings"
+          },
+          "response": []
+        },
+        {
+          "name": "Create new Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// var jsonData = pm.response.json();",
+                  "// pm.test(\"Check firstname of new Booking\", function () {",
+                  "//     pm.expect(jsonData.firstname).to.eql(\"Sally\");",
+                  "// });",
+                  "",
+                  "// var bookingID = jsonData._Id;",
+                  "// console.log(bookingID);",
+                  "// pm.environment.set(\"bookingID\", bookingID);",
+                  "",
+                  "// postman.setNextRequest(\"Get Booking by ID\");",
+                  ""
+                ],
+                "type": "text/javascript",
+                "id": "9d89347f-8da9-48d9-836a-7dcca57c60a5"
+              }
+            }
+          ],
+          "_postman_id": "0d814176-0310-4587-925f-98e774e9cca0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstname\" : \"Sally\",\r\n  \"lastname\" : \"Brown\",\r\n  \"totalprice\" : 111,\r\n  \"depositpaid\" : true,\r\n  \"additionalneeds\" : \"Breakfast\",\r\n  \"bookingdates\" : {\r\n    \"checkin\" : \"2013-02-23\",\r\n    \"checkout\" : \"2014-10-23\"\r\n  }\r\n}",
+              "options": {
+                "raw": {}
+              }
+            },
+            "url": "{{url}}/booking"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Booking (partial)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "id": "5a42e768-fd5e-4aa5-93c1-bed08ab789eb"
+              }
+            }
+          ],
+          "_postman_id": "ade081f5-ac6c-4173-bc33-533420e8a88d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\" : \"James\",\r\n    \"lastname\" : \"Brown\",\r\n    \"totalprice\" : 111,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2018-01-01\",\r\n        \"checkout\" : \"2019-01-01\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+              "options": {
+                "raw": {}
+              }
+            },
+            "url": "{{url}}/booking/{{bookingID}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "id": "bfbc14ce-71eb-4c48-9c4e-cf300d215665"
+              }
+            }
+          ],
+          "_postman_id": "f7c71a95-164e-41db-a3d4-bea9fc4e5294",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{url}}/booking/{{bookingID}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var url = pm.environment.get(\"url\") + \"/booking/\" +  pm.environment.get(\"bookingID\");",
+                  "",
+                  "const getRequest = {",
+                  "        url: url,",
+                  "        method: 'GET'",
+                  "};",
+                  "",
+                  "pm.sendRequest(getRequest, function (err, res) {",
+                  "    if (err) { ",
+                  "        console.log(err);",
+                  "    }",
+                  "    ",
+                  "    console.log(res);",
+                  "    ",
+                  "    pm.test('Response should be Not Found', function () {",
+                  "        pm.expect(res.status).to.include(\"Not Found\");",
+                  "    });",
+                  "    ",
+                  "    pm.test(\"Response code 404\", function() {",
+                  "        pm.expect(res.code).to.equal(404);",
+                  "    })",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "id": "ec6eb30e-07a6-40db-b266-a7477619713a"
+              }
+            }
+          ],
+          "_postman_id": "734d95b8-9bfd-40f7-80bf-be17505018d8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token={{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {}
+              }
+            },
+            "url": "{{url}}/booking/{{bookingID}}"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "ecd605f4-04b7-478c-a54b-f3063b9d427d",
+      "description": "All bookings requests "
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Get Auth Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "/*",
+                  "var authSchema = {",
+                  "  \"properties\": {",
+                  "    \"token\": {",
+                  "        \"description\": \"The auth token returned\",",
+                  "        \"type\": \"string\",",
+                  "    }",
+                  "  }",
+                  "};",
+                  "",
+                  "var response = JSON.parse(responseBody);",
+                  "",
+                  "pm.test('Schema is valid', function() {",
+                  "  pm.expect(tv4.validate(response, authSchema)).to.be.true;",
+                  "});",
+                  "*/",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "id": "22cc75c4-f242-4ef0-ad14-79314a44b2ae"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "/*",
+                  "var password = pm.environment.get(\"variable_key\");",
+                  "console.log(\"password is \" + password);",
+                  "if(password === undefined) {",
+                  "    console.log(\"Setting password to password123\");",
+                  "    pm.environment.set(\"password\", \"password123\");",
+                  "}",
+                  "*/"
+                ],
+                "type": "text/javascript",
+                "id": "26f10bc2-1dd4-4f8d-b613-e914c8b13bcd"
+              }
+            }
+          ],
+          "_postman_id": "cdda4fcb-6ac0-4e14-a798-9578989e019e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {}
+              }
+            },
+            "url": "{{url}}/auth",
+            "description": "Get auth token"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "a2b9ce0d-3d0b-4ede-ac3c-628780ef5a05"
+    },
+    {
+      "name": "https://restful-booker.herokuapp.com/auth",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "id": "c2e73071-afed-4939-b67b-2a91636cad35"
+          }
+        }
+      ],
+      "_postman_id": "c047334a-8680-4412-b1e7-52d2f809b340",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"{{password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "https://restful-booker.herokuapp.com/auth"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "f553a979-b841-41bb-a4db-954370e11186"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "3f276066-d643-439c-97b6-4fa0f1c46e53"
+      }
+    }
+  ]
+}
